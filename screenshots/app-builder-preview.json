@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "TikJil",
+      "hasCanvas": false,
+      "bodyTextLen": 299,
+      "bodyTextHash": "603425c6d2563e310af08c34c83ba96893ee3dc3a7607b17334c8b44061119b3",
+      "bodyTextPrefix": "TikJil قائمة شبكة ريلز 18+ قسم البالغين · NSFW مخفي عن المكتبة. ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "TikJil",
+      "hasCanvas": false,
+      "bodyTextLen": 299,
+      "bodyTextHash": "603425c6d2563e310af08c34c83ba96893ee3dc3a7607b17334c8b44061119b3",
+      "bodyTextPrefix": "TikJil قائمة شبكة ريلز 18+ قسم البالغين · NSFW مخفي عن المكتبة. ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
