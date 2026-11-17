@@ -2,28 +2,14 @@ name: Build APK
 
 on:
   workflow_dispatch:
-    inputs:
-      app_url:
-        description: "رابط الموقع على Vercel (https://...)"
-        required: false
   push:
     branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      APP_URL: ${{ github.event.inputs.app_url || vars.APP_URL }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Check app URL
-        run: |
-          if [ -z "$APP_URL" ]; then
-            echo "::error::لازم رابط الموقع. شغّل الـ workflow يدوياً واكتب الرابط، أو أضف Variable اسمه APP_URL من Settings > Secrets and variables > Actions > Variables"
-            exit 1
-          fi
-          echo "Using $APP_URL"
 
       - uses: actions/setup-node@v4
         with:
@@ -34,23 +20,28 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Create Android wrapper
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build web app (static)
         run: |
-          mkdir -p "$RUNNER_TEMP/wrap/www"
+          npx vite build --config apk-web/vite.config.mjs
+          ls -la www
+
+      - name: Create Android project
+        run: |
+          mkdir -p "$RUNNER_TEMP/wrap"
+          cp -r www "$RUNNER_TEMP/wrap/www"
           cd "$RUNNER_TEMP/wrap"
           npm init -y
           npm i @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
-          cat > www/index.html <<'EOF'
-          <!doctype html><meta charset="utf-8"><title>TikJil</title>
-          EOF
-          cat > capacitor.config.json <<EOF
+          cat > capacitor.config.json <<'JSON'
           {
             "appId": "com.tikjil.app",
             "appName": "TikJil",
-            "webDir": "www",
-            "server": { "url": "$APP_URL", "cleartext": false }
+            "webDir": "www"
           }
-          EOF
+          JSON
           npx cap add android
           npx cap sync android
 
